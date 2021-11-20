@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "@prisma/client": "^3.5.0",
+    "fastify": "^3.24.0",
+    "nodemon": "^2.0.15",
+    "pino": "^7.3.0",
+    "pino-pretty": "^7.2.0"
+  },
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "name": "fastify-prisma",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Faeshal/fastify-prisma.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Faeshal/fastify-prisma/issues"
+  },
+  "homepage": "https://github.com/Faeshal/fastify-prisma#readme",
+  "description": "",
+  "devDependencies": {
+    "prisma": "^3.5.0"
+  }
+}
