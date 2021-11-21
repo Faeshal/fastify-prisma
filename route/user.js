@@ -1,5 +1,6 @@
 const userController = require("../controller/user");
 const schema = require("../schema/user");
+const protect = require("../middleware/auth");
 
 async function routes(fastify, options) {
   fastify.get("/api/v1/users", userController.getUsers);

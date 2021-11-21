@@ -4,7 +4,9 @@ const prisma = new PrismaClient();
 // * @route   GET /api/v1/users
 // @desc      Get all users
 // @access    Private
-exports.getUsers = async (request, reply) => {
+exports.getUsers = async (req, reply) => {
+  console.log("session:", req.session.get("user"));
+
   const data = await prisma.user.findMany({
     select: {
       id: true,
