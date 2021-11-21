@@ -2,9 +2,11 @@ const fastify = require("fastify")({
   logger: { prettyPrint: true },
 });
 const userRoutes = require("./route/user");
+const authRoutes = require("./route/auth");
 
 // * middleware
 fastify.register(userRoutes);
+fastify.register(authRoutes);
 
 // Declare a route
 fastify.get("/", async (request, reply) => {

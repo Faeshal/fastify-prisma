@@ -4,7 +4,8 @@
     "fastify": "^3.24.0",
     "nodemon": "^2.0.15",
     "pino": "^7.3.0",
-    "pino-pretty": "^7.2.0"
+    "pino-pretty": "^7.2.0",
+    "uniqid": "^5.4.0"
   },
   "scripts": {
     "dev": "nodemon server.js"
