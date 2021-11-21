@@ -1,12 +1,14 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const log4js = require("log4js");
+const log = log4js.getLogger("user");
+log.level = "info";
+require("pretty-error").start();
 
 // * @route   GET /api/v1/users
 // @desc      Get all users
 // @access    Private
 exports.getUsers = async (req, reply) => {
-  console.log("session:", req.session.get("user"));
-
   const data = await prisma.user.findMany({
     select: {
       id: true,

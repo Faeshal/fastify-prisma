@@ -1,13 +1,12 @@
-const fastify = require("fastify")({
-  logger: { prettyPrint: true },
-});
+const fastify = require("fastify")();
 const fs = require("fs");
 const path = require("path");
-// const fastifySession = require("fastify-session");
-// const fastifyCookie = require("fastify-cookie");
+const log4js = require("log4js");
+const log = log4js.getLogger("entrypoint");
+log.level = "info";
+require("pretty-error").start();
 
 // * Middleware
-// fastify.register(fastifyCookie);
 fastify.register(require("fastify-secure-session"), {
   // the name of the session cookie, defaults to 'session'
   cookieName: "fastprisma-cookie",
@@ -36,8 +35,9 @@ fastify.get("/", async (request, reply) => {
 const start = async () => {
   try {
     await fastify.listen(1313);
+    log.info("server is running");
   } catch (err) {
-    fastify.log.error(err);
+    log.error(err);
     process.exit(1);
   }
 };

@@ -2,6 +2,10 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const uniqid = require("uniqid");
+const log4js = require("log4js");
+const log = log4js.getLogger("auth");
+log.level = "info";
+require("pretty-error").start();
 
 // * @route   GET /api/v1/auth/register
 // @desc      register
@@ -65,10 +69,8 @@ exports.login = async (req, reply) => {
   // * Send Back Data Without Sensitive Information
   const result = await prisma.user.findUnique({
     where: { email },
-    exclude: {
-      password: true,
-    },
   });
+  delete result["password"];
 
   reply.code(200).send({ success: true, data: result });
 };
@@ -77,7 +79,9 @@ exports.login = async (req, reply) => {
 // @desc      logout an admin
 // @access    Private
 exports.logout = async (req, reply) => {
-  if (!req.session.user) {
+  const session = req.session.get("user");
+  log.info("session user:", session);
+  if (!session) {
     return reply.code(400).send({
       success: false,
       message: "You Dont Have Any Session, Please Login to the system",
@@ -87,7 +91,7 @@ exports.logout = async (req, reply) => {
   const new_api_key = uniqid() + uniqid.process();
   await prisma.user.update({
     where: {
-      id: req.session.user,
+      id: session.id,
     },
     data: { apiKey: new_api_key },
   });
